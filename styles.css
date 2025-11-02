@@ -63,8 +63,7 @@ label {
 }
 
 input,
-select,
-textarea {
+select {
   height: 50px;
   font-size: 16px;
   width: 100%;
@@ -74,13 +73,11 @@ textarea {
   margin-bottom: 20px;
   background: #f4f8f7;
   color: var(--primario);
-  font-family: "Quicksand", sans-serif;
   border: 2px solid transparent;
   transition: 0.3s ease all;
 }
 input:focus,
-select:focus,
-textarea:focus {
+select:focus {
   outline: none;
   border: 2px solid var(--primario);
 }
