@@ -1,81 +1,111 @@
 <!DOCTYPE html>
 <html lang="es">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Prospecciones - Alta / Actualizar</title>
-
-    <!-- Fuente -->
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;700&display=swap" rel="stylesheet" />
-
-    <!-- Enlace al archivo CSS -->
-    <link rel="stylesheet" href="styles.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registro de Prospecciones</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="contenedor">
-      <div class="columna-izquierda">
-        <div class="header">
-          <h1>Prospecciones</h1>
-          <p>Nuevo registro o actualizar existente</p>
-        </div>
+    <div class="container">
+      <h1>Formulario de Prospecciones</h1>
 
-        <!-- Selector de modo -->
-        <label for="modeSelect">Modo</label>
-        <div class="contenedor-input">
-          <select id="modeSelect">
-            <option value="nuevo">➕ Nuevo registro</option>
-            <option value="actualizar">✏️ Actualizar existente</option>
-          </select>
-        </div>
+      <!-- 🔹 Formulario principal -->
+      <form id="prosForm">
+        <!-- Cada campo se vincula directamente con el nombre de columna de tu hoja -->
 
-        <form id="mainForm">
-          <!-- Seleccionar RIF existente (solo visible en modo actualizar) -->
-          <div class="contenedor-input" id="divRifSelect" style="display: none">
-            <label for="rifSelect">Seleccionar RIF existente</label>
-            <select id="rifSelect" name="rifSelect">
-              <option value="">Cargando RIFs...</option>
-            </select>
-          </div>
+        <label>FECHA:</label>
+        <input type="date" name="FECHA" required />
 
-          <!-- Campo RIF (solo modo nuevo) -->
-          <div class="contenedor-input" id="divRifInput">
-            <label for="rif">RIF</label>
-            <input id="rif" name="rif" type="text" placeholder="J-12345678-9" />
-          </div>
+        <label>REGIÓN:</label>
+        <input
+          type="text"
+          name="REGIÓN"
+          placeholder="Ej: Occidente, Centro, Oriente"
+          required
+        />
 
-          <!-- Los IDs de estos inputs coinciden con las claves normalizadas que usa el backend.
-               Ej: 'fecha', 'region', 'ejecutiva', 'razonsocial', 'servicio', 'propuesta', 'srm', 'beneficios', 'observaciones',
-               'estatus', 'fechacap', 'codigocliente', 'rangokg', 'codigof' -->
-          <div class="contenedor-input"><label for="fecha">FECHA</label><input id="fecha" type="date" /></div>
-          <div class="contenedor-input"><label for="region">REGIÓN</label><input id="region" type="text" /></div>
-          <div class="contenedor-input"><label for="ejecutiva">EJECUTIVA</label><input id="ejecutiva" type="text" /></div>
-          <div class="contenedor-input"><label for="razonsocial">RAZÓN SOCIAL</label><input id="razonsocial" type="text" /></div>
-          <div class="contenedor-input"><label for="servicio">SERVICIO</label><input id="servicio" type="text" /></div>
-          <div class="contenedor-input"><label for="propuesta">PROPUESTA</label><input id="propuesta" type="text" /></div>
-          <div class="contenedor-input"><label for="srm">SRM</label><input id="srm" type="text" /></div>
-          <div class="contenedor-input"><label for="beneficios">BENEFICIOS</label><input id="beneficios" type="text" /></div>
-          <div class="contenedor-input"><label for="observaciones">OBSERVACIONES</label><input id="observaciones" type="text" /></div>
-          <div class="contenedor-input"><label for="estatus">ESTATUS</label><input id="estatus" type="text" /></div>
-          <div class="contenedor-input"><label for="fechacap">FECHACAP</label><input id="fechacap" type="date" /></div>
-          <div class="contenedor-input"><label for="codigocliente">CÓDIGO CLIENTE</label><input id="codigocliente" type="text" /></div>
-          <div class="contenedor-input"><label for="rangokg">RANGO KG</label><input id="rangokg" type="text" /></div>
-          <div class="contenedor-input"><label for="codigof">CÓDIGOF</label><input id="codigof" type="text" /></div>
+        <label>EJECUTIVA:</label>
+        <input
+          type="text"
+          name="EJECUTIVA"
+          placeholder="Nombre de la ejecutiva"
+          required
+        />
 
-          <!-- Botón de envío -->
-          <div class="contenedor-boton">
-            <button type="submit" id="btnSubmit">Guardar</button>
-          </div>
-        </form>
+        <label>RIF:</label>
+        <input type="text" name="RIF" placeholder="Ej: J-12345678-9" required />
 
-        <div id="exito" class="exito" style="display: none; margin-top: 16px">
-          ✅ Registro guardado/actualizado correctamente.
-        </div>
-      </div>
+        <label>RAZÓNSOCIAL:</label>
+        <input
+          type="text"
+          name="RAZÓNSOCIAL"
+          placeholder="Nombre de la empresa"
+          required
+        />
 
-      <div class="columna-derecha"></div>
+        <label>SERVICIO:</label>
+        <input type="text" name="SERVICIO" placeholder="Tipo de servicio" />
+
+        <label>PROPUESTA:</label>
+        <textarea
+          name="PROPUESTA"
+          placeholder="Detalles de la propuesta"
+        ></textarea>
+
+        <label>SRM:</label>
+        <input type="text" name="SRM" placeholder="SRM relacionado" />
+
+        <label>BENEFICIOS:</label>
+        <textarea
+          name="BENEFICIOS"
+          placeholder="Beneficios ofrecidos"
+        ></textarea>
+
+        <label>OBSERVACIONES:</label>
+        <textarea
+          name="OBSERVACIONES"
+          placeholder="Observaciones del cliente o notas"
+        ></textarea>
+
+        <label>ESTATUS:</label>
+        <input
+          type="text"
+          name="ESTATUS"
+          placeholder="Ej: En proceso, Cerrado, Rechazado"
+        />
+
+        <label>FECHACAP:</label>
+        <input type="date" name="FECHACAP" />
+
+        <label>codigocliente:</label>
+        <input
+          type="text"
+          name="codigocliente"
+          placeholder="Código interno de cliente"
+        />
+
+        <label>RANGOKG:</label>
+        <input
+          type="text"
+          name="RANGOKG"
+          placeholder="Ej: 0-100kg, 100-500kg, etc."
+        />
+
+        <label>CÓDIGOF:</label>
+        <input
+          type="text"
+          name="CÓDIGOF"
+          placeholder="Código final del registro"
+        />
+
+        <button type="submit">Enviar Registro</button>
+      </form>
+
+      <!-- Zona de mensajes -->
+      <div id="mensaje"></div>
     </div>
 
-    <!-- Archivo JavaScript -->
     <script src="script.js"></script>
   </body>
 </html>
