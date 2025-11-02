@@ -1,125 +1,72 @@
-:root {
-  --primario: #013e6a;
-  --secundario: #000;
-}
-
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
+/* 🎨 style.css
+   Diseño simple y responsivo para el formulario de prospecciones
+*/
 
 body {
-  background: #f0f4f3;
-  font-family: "Quicksand", sans-serif;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f2f4f7;
+  color: #333;
+  margin: 0;
+  padding: 0;
 }
 
-.contenedor {
-  width: 90%;
-  max-width: 900px;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+.container {
+  max-width: 600px;
   background: #fff;
-  min-height: 60vh;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  margin: 40px auto;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.columna-izquierda {
-  padding: 40px;
-}
-
-.columna-derecha {
-  background-image: url("https://www.tealca.com/wp-content/uploads/2021/06/002_IMG-FONDO-1.jpg");
-  background-size: cover;
-  background-position: center;
-}
-
-.header {
-  margin-bottom: 40px;
+h1 {
   text-align: center;
-}
-.header h1 {
-  color: var(--primario);
-}
-.header p {
-  color: var(--secundario);
+  color: #155b48;
+  margin-bottom: 20px;
 }
 
 label {
-  margin-bottom: 10px;
   display: block;
-  font-weight: 500;
-  color: var(--secundario);
-  font-size: 14px;
-}
-.contenedor-input {
-  position: relative;
+  margin-top: 12px;
+  font-weight: bold;
+  color: #444;
 }
 
 input,
-select {
-  height: 50px;
-  font-size: 16px;
+textarea {
   width: 100%;
-  border: none;
-  border-radius: 5px;
-  padding: 0 20px;
-  margin-bottom: 20px;
-  background: #f4f8f7;
-  color: var(--primario);
-  border: 2px solid transparent;
-  transition: 0.3s ease all;
-}
-input:focus,
-select:focus {
-  outline: none;
-  border: 2px solid var(--primario);
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-top: 4px;
+  box-sizing: border-box;
+  font-size: 14px;
 }
 
-.contenedor-boton {
-  display: flex;
-  justify-content: center;
+textarea {
+  resize: vertical;
+  min-height: 70px;
 }
+
 button {
-  font-family: "Quicksand", sans-serif;
-  font-size: 16px;
-  border-radius: 5px;
+  width: 100%;
   margin-top: 20px;
-  background: none;
-  height: 50px;
-  color: var(--primario);
-  padding: 0 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid var(--primario);
+  padding: 10px;
+  background-color: #155b48;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
   cursor: pointer;
-  transition: 0.3s ease all;
-  outline: none;
+  transition: 0.2s;
 }
+
 button:hover {
-  background: var(--primario);
-  color: #fff;
+  background-color: #0e3e32;
 }
 
-.exito {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  color: var(--primario);
-}
-
-@media (max-width: 800px) {
-  .contenedor {
-    grid-template-columns: 1fr;
-  }
-  .columna-derecha {
-    display: none;
-  }
+#mensaje {
+  text-align: center;
+  margin-top: 20px;
+  font-weight: bold;
 }
