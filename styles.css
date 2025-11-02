@@ -1,0 +1,128 @@
+:root {
+  --primario: #013e6a;
+  --secundario: #000;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #f0f4f3;
+  font-family: "Quicksand", sans-serif;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contenedor {
+  width: 90%;
+  max-width: 800px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+  background: #fff;
+  min-height: 60vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.columna-izquierda {
+  padding: 40px;
+}
+
+.columna-derecha {
+  background-image: url("https://www.tealca.com/wp-content/uploads/2021/06/002_IMG-FONDO-1.jpg");
+  background-size: contain;
+  background-position-x: center;
+}
+
+.header {
+  margin-bottom: 40px;
+  text-align: center;
+}
+.header h1 {
+  color: var(--primario);
+}
+.header p {
+  color: var(--secundario);
+}
+
+label {
+  margin-bottom: 10px;
+  display: block;
+  font-weight: 500;
+  color: var(--secundario);
+  font-size: 14px;
+}
+.contenedor-input {
+  position: relative;
+}
+
+input,
+select,
+textarea {
+  height: 50px;
+  font-size: 16px;
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  padding: 0 20px;
+  margin-bottom: 20px;
+  background: #f4f8f7;
+  color: var(--primario);
+  font-family: "Quicksand", sans-serif;
+  border: 2px solid transparent;
+  transition: 0.3s ease all;
+}
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border: 2px solid var(--primario);
+}
+
+.contenedor-boton {
+  display: flex;
+  justify-content: center;
+}
+button {
+  font-family: "Quicksand", sans-serif;
+  font-size: 16px;
+  border-radius: 5px;
+  margin-top: 20px;
+  background: none;
+  height: 50px;
+  color: var(--primario);
+  padding: 0 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--primario);
+  cursor: pointer;
+  transition: 0.3s ease all;
+  outline: none;
+}
+button:hover {
+  background: var(--primario);
+  color: #fff;
+}
+
+.exito {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  color: var(--primario);
+}
+
+@media (max-width: 800px) {
+  .contenedor {
+    grid-template-columns: 1fr;
+  }
+  .columna-derecha {
+    display: none;
+  }
+}
