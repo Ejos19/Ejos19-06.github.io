@@ -20,7 +20,7 @@ body {
 
 .contenedor {
   width: 90%;
-  max-width: 800px;
+  max-width: 900px;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
@@ -36,8 +36,8 @@ body {
 
 .columna-derecha {
   background-image: url("https://www.tealca.com/wp-content/uploads/2021/06/002_IMG-FONDO-1.jpg");
-  background-size: contain;
-  background-position-x: center;
+  background-size: cover;
+  background-position: center;
 }
 
 .header {
