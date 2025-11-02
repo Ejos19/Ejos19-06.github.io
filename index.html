@@ -5,13 +5,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Prospecciones - Alta / Actualizar</title>
 
-    <!-- Fuente (puedes cambiarla) -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;700&display=swap"
-      rel="stylesheet"
-    />
+    <!-- Fuente -->
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;700&display=swap" rel="stylesheet" />
 
-    <!-- Enlaza tu CSS -->
+    <!-- Enlace al archivo CSS -->
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -22,6 +19,7 @@
           <p>Nuevo registro o actualizar existente</p>
         </div>
 
+        <!-- Selector de modo -->
         <label for="modeSelect">Modo</label>
         <div class="contenedor-input">
           <select id="modeSelect">
@@ -31,7 +29,7 @@
         </div>
 
         <form id="mainForm">
-          <!-- Seleccionar RIF existente (visible solo en modo 'actualizar') -->
+          <!-- Seleccionar RIF existente (solo visible en modo actualizar) -->
           <div class="contenedor-input" id="divRifSelect" style="display: none">
             <label for="rifSelect">Seleccionar RIF existente</label>
             <select id="rifSelect" name="rifSelect">
@@ -39,66 +37,31 @@
             </select>
           </div>
 
-          <!-- Inputs -->
+          <!-- Campo RIF (solo modo nuevo) -->
           <div class="contenedor-input" id="divRifInput">
             <label for="rif">RIF</label>
             <input id="rif" name="rif" type="text" placeholder="J-12345678-9" />
           </div>
 
-          <div class="contenedor-input">
-            <label for="fecha">FECHA</label><input id="fecha" type="date" />
-          </div>
-          <div class="contenedor-input">
-            <label for="region">REGIÓN</label><input id="region" type="text" />
-          </div>
-          <div class="contenedor-input">
-            <label for="ejecutiva">EJECUTIVA</label
-            ><input id="ejecutiva" type="text" />
-          </div>
-          <div class="contenedor-input">
-            <label for="razonsocial">RAZÓN SOCIAL</label
-            ><input id="razonsocial" type="text" />
-          </div>
-          <div class="contenedor-input">
-            <label for="servicio">SERVICIO</label
-            ><input id="servicio" type="text" />
-          </div>
-          <div class="contenedor-input">
-            <label for="propuesta">PROPUESTA</label
-            ><input id="propuesta" type="text" />
-          </div>
-          <div class="contenedor-input">
-            <label for="srm">SRM</label><input id="srm" type="text" />
-          </div>
-          <div class="contenedor-input">
-            <label for="beneficios">BENEFICIOS</label
-            ><input id="beneficios" type="text" />
-          </div>
-          <div class="contenedor-input">
-            <label for="observaciones">OBSERVACIONES</label
-            ><input id="observaciones" type="text" />
-          </div>
-          <div class="contenedor-input">
-            <label for="estatus">ESTATUS</label
-            ><input id="estatus" type="text" />
-          </div>
-          <div class="contenedor-input">
-            <label for="fechacap">FECHACAP</label
-            ><input id="fechacap" type="date" />
-          </div>
-          <div class="contenedor-input">
-            <label for="codigocliente">CÓDIGO CLIENTE</label
-            ><input id="codigocliente" type="text" />
-          </div>
-          <div class="contenedor-input">
-            <label for="rangokg">RANGO KG</label
-            ><input id="rangokg" type="text" />
-          </div>
-          <div class="contenedor-input">
-            <label for="codigof">CÓDIGOF</label
-            ><input id="codigof" type="text" />
-          </div>
+          <!-- Los IDs de estos inputs coinciden con las claves normalizadas que usa el backend.
+               Ej: 'fecha', 'region', 'ejecutiva', 'razonsocial', 'servicio', 'propuesta', 'srm', 'beneficios', 'observaciones',
+               'estatus', 'fechacap', 'codigocliente', 'rangokg', 'codigof' -->
+          <div class="contenedor-input"><label for="fecha">FECHA</label><input id="fecha" type="date" /></div>
+          <div class="contenedor-input"><label for="region">REGIÓN</label><input id="region" type="text" /></div>
+          <div class="contenedor-input"><label for="ejecutiva">EJECUTIVA</label><input id="ejecutiva" type="text" /></div>
+          <div class="contenedor-input"><label for="razonsocial">RAZÓN SOCIAL</label><input id="razonsocial" type="text" /></div>
+          <div class="contenedor-input"><label for="servicio">SERVICIO</label><input id="servicio" type="text" /></div>
+          <div class="contenedor-input"><label for="propuesta">PROPUESTA</label><input id="propuesta" type="text" /></div>
+          <div class="contenedor-input"><label for="srm">SRM</label><input id="srm" type="text" /></div>
+          <div class="contenedor-input"><label for="beneficios">BENEFICIOS</label><input id="beneficios" type="text" /></div>
+          <div class="contenedor-input"><label for="observaciones">OBSERVACIONES</label><input id="observaciones" type="text" /></div>
+          <div class="contenedor-input"><label for="estatus">ESTATUS</label><input id="estatus" type="text" /></div>
+          <div class="contenedor-input"><label for="fechacap">FECHACAP</label><input id="fechacap" type="date" /></div>
+          <div class="contenedor-input"><label for="codigocliente">CÓDIGO CLIENTE</label><input id="codigocliente" type="text" /></div>
+          <div class="contenedor-input"><label for="rangokg">RANGO KG</label><input id="rangokg" type="text" /></div>
+          <div class="contenedor-input"><label for="codigof">CÓDIGOF</label><input id="codigof" type="text" /></div>
 
+          <!-- Botón de envío -->
           <div class="contenedor-boton">
             <button type="submit" id="btnSubmit">Guardar</button>
           </div>
@@ -112,7 +75,7 @@
       <div class="columna-derecha"></div>
     </div>
 
-    <!-- Enlaza tu JS -->
+    <!-- Archivo JavaScript -->
     <script src="script.js"></script>
   </body>
 </html>
