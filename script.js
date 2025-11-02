@@ -1,7 +1,24 @@
-const WEB_APP_URL =
-  "https://script.google.com/macros/s/AKfycbza01j0Po8wyVeCPtZK667FHp7-nhSQnWHwSlEQqvloIFjgyMCrSO23pblc3JUNEb1VLQ/exec";
-const TOKEN = "Ventas_equipo_1919";
+/* ===========================
+   script.js - Frontend logic
+   ===========================
+   - Maneja carga de RIFs, selección, envío de formularios (insert/update).
+   - Espera respuestas JSON desde el Apps Script (backend).
+   - Actualiza la UI con mensajes y manejo de errores.
+*/
 
+/* ------------------------
+   CONFIG: Actualiza aquí
+   ------------------------ */
+const WEB_APP_URL =
+  "https://script.google.com/macros/s/AKfycbyojJuqpKiOkzH4MNQiutywAjfiNFTejWNVIjBh2j2bMItKgyHcxg4AiUYn2YC-nVuZRA/exec";
+// ↑ Sustituye por la URL de despliegue de tu Google Apps Script (obtenida al "Implementar como aplicación web")
+
+const TOKEN = "Ventas_equipo_1919";
+// ↑ Cambia este token por uno seguro si lo deseas. Debe coincidir con el token validado en el Apps Script.
+
+/* ------------------------
+   Elementos DOM
+   ------------------------ */
 const modeSelect = document.getElementById("modeSelect");
 const divRifSelect = document.getElementById("divRifSelect");
 const rifSelect = document.getElementById("rifSelect");
@@ -11,6 +28,8 @@ const mainForm = document.getElementById("mainForm");
 const exitoBox = document.getElementById("exito");
 const btnSubmit = document.getElementById("btnSubmit");
 
+/* Lista de campos que leeremos/escribiremos en el formulario.
+   Debe coincidir con los nombres/orden que usa tu hoja de cálculo */
 const formFields = [
   "rif",
   "fecha",
@@ -29,32 +48,14 @@ const formFields = [
   "codigof",
 ];
 
-// Función para hacer una solicitud preflight CORS
-async function checkCORS() {
-  try {
-    await fetch(WEB_APP_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ action: "preflight", token: TOKEN }),
-    });
-    return true;
-  } catch (e) {
-    console.warn("CORS preflight check failed:", e);
-    return false;
-  }
-}
-
-document.addEventListener("DOMContentLoaded", async () => {
-  // Verificar CORS primero
-  const corsWorks = await checkCORS();
-  if (!corsWorks) {
-    console.warn("CORS podría estar causando problemas");
-  }
-
+/* ------------------------
+   Eventos
+   ------------------------ */
+document.addEventListener("DOMContentLoaded", () => {
+  // Configura UI según modo inicial
   handleModeChange(modeSelect.value);
-  loadRIFs();
+
+  // Listeners
   modeSelect.addEventListener("change", (e) =>
     handleModeChange(e.target.value)
   );
@@ -62,67 +63,64 @@ document.addEventListener("DOMContentLoaded", async () => {
   mainForm.addEventListener("submit", onFormSubmit);
 });
 
+/* ------------------------
+   Funciones
+   ------------------------ */
+
+/**
+ * Cambia la interfaz según el modo (nuevo/actualizar).
+ * En modo 'actualizar' muestra el select de RIFs y carga la lista.
+ */
 function handleModeChange(mode) {
+  exitoBox.style.display = "none";
+  mainForm.reset();
+
   if (mode === "nuevo") {
     divRifSelect.style.display = "none";
     divRifInput.style.display = "block";
     rifInput.disabled = false;
-    mainForm.reset();
-    exitoBox.style.display = "none";
+    // No es necesario recargar RIFs en modo nuevo
   } else {
     divRifSelect.style.display = "block";
     divRifInput.style.display = "none";
     rifInput.disabled = true;
-    mainForm.reset();
-    exitoBox.style.display = "none";
+    // Cargar la lista actualizada de RIFs desde el backend
     loadRIFs();
   }
 }
 
+/**
+ * Carga la lista de RIFs desde el Apps Script.
+ * Espera respuesta JSON con la estructura: { ok: true, rifs: ["J-...","J-..."] }
+ */
 async function loadRIFs() {
   rifSelect.innerHTML = '<option value="">Cargando RIFs...</option>';
+
   try {
-    // Usar fetch con modo 'no-cors' como fallback
-    let res;
-    try {
-      res = await fetch(`${WEB_APP_URL}?action=getRIFs&token=${TOKEN}`);
-    } catch (e) {
-      console.warn("Fetch directo falló, intentando con modo no-cors", e);
-      res = await fetch(`${WEB_APP_URL}?action=getRIFs&token=${TOKEN}`, {
-        mode: "no-cors",
-      });
-      // Si usamos no-cors, no podemos leer la respuesta pero al menos sabemos que llegó
-      rifSelect.innerHTML =
-        '<option value="">Error: Revisa la consola</option>';
-      return;
-    }
+    const res = await fetch(
+      `${WEB_APP_URL}?action=getRIFs&token=${encodeURIComponent(TOKEN)}`,
+      {
+        method: "GET",
+        // No CORS mode tweaks aquí: backend debe permitirlo con headers.
+      }
+    );
 
-    // Verificar si la respuesta es válida
-    if (!res || !res.ok) {
-      throw new Error(`HTTP error! status: ${res.status}`);
-    }
+    // Si el servidor devuelve error HTTP, lanzar excepción
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
-    const text = await res.text();
-    let json;
-
-    try {
-      json = JSON.parse(text);
-    } catch (e) {
-      console.error("Error parsing JSON:", e, "Response text:", text);
-      throw new Error("Respuesta inválida del servidor");
-    }
+    const json = await res.json(); // esperamos JSON válido
 
     if (json.ok && Array.isArray(json.rifs)) {
       rifSelect.innerHTML = '<option value="">Seleccione un RIF</option>';
       json.rifs.forEach((rif) => {
-        const opt = document.createElement("option");
-        opt.value = rif;
-        opt.textContent = rif;
-        rifSelect.appendChild(opt);
+        const option = document.createElement("option");
+        option.value = rif;
+        option.textContent = rif;
+        rifSelect.appendChild(option);
       });
     } else {
+      console.error("Respuesta inválida de getRIFs:", json);
       rifSelect.innerHTML = '<option value="">No hay RIFs disponibles</option>';
-      console.error("Error en la respuesta:", json);
     }
   } catch (err) {
     console.error("Error al cargar RIFs:", err);
@@ -130,6 +128,10 @@ async function loadRIFs() {
   }
 }
 
+/**
+ * Cuando el usuario selecciona un RIF, obtenemos la fila correspondiente.
+ * Esperamos JSON: { ok: true, row: { rif: "...", fecha: "...", ... } }
+ */
 async function onRIFSelectChange(e) {
   const rifValue = e.target.value;
   if (!rifValue) {
@@ -141,43 +143,43 @@ async function onRIFSelectChange(e) {
     const res = await fetch(
       `${WEB_APP_URL}?action=getRowByRIF&rif=${encodeURIComponent(
         rifValue
-      )}&token=${TOKEN}`
+      )}&token=${encodeURIComponent(TOKEN)}`,
+      {
+        method: "GET",
+      }
     );
 
-    if (!res.ok) {
-      throw new Error(`HTTP error! status: ${res.status}`);
-    }
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
-    const text = await res.text();
-    let json;
-
-    try {
-      json = JSON.parse(text);
-    } catch (e) {
-      console.error("Error parsing JSON:", e, "Response text:", text);
-      throw new Error("Respuesta inválida del servidor");
-    }
+    const json = await res.json();
 
     if (json.ok && json.row) {
+      // Poner valores en los inputs según formFields
       formFields.forEach((field) => {
         const input = document.getElementById(field);
-        if (input && json.row[field] !== undefined) {
-          input.value = json.row[field] || "";
+        if (input) {
+          // Si la propiedad no existe, dejar cadena vacía
+          input.value = json.row[field] !== undefined ? json.row[field] : "";
         }
       });
     } else {
-      console.error("Error al cargar datos del RIF:", json.error);
+      console.error("Error al obtener fila:", json);
       alert("Error al cargar los datos: " + (json.error || "Desconocido"));
     }
   } catch (err) {
-    console.error("Error en onRIFSelectChange:", err);
+    console.error("Error onRIFSelectChange:", err);
     alert("Error de conexión al cargar los datos: " + err.message);
   }
 }
 
+/**
+ * Envío del formulario. Dependiendo del modo, hará 'insertRow' o 'updateRow'.
+ * Envia JSON como body en POST y espera respuesta JSON.
+ */
 async function onFormSubmit(e) {
   e.preventDefault();
 
+  // Validaciones mínimas:
   if (modeSelect.value === "nuevo") {
     const rifValue = rifInput.value.trim();
     if (!rifValue) {
@@ -185,24 +187,20 @@ async function onFormSubmit(e) {
       return;
     }
   }
-
   if (modeSelect.value === "actualizar" && !rifSelect.value) {
     alert("Por favor, seleccione un RIF existente");
     return;
   }
 
+  // Construir payload con token y campos
   const payload = { token: TOKEN };
   formFields.forEach((k) => {
     payload[k] = document.getElementById(k)?.value || "";
   });
 
-  // Añadir acción según el modo
-  if (modeSelect.value === "actualizar") {
-    payload.action = "updateRow";
-    payload.selectedRIF = rifSelect.value;
-  } else {
-    payload.action = "insertRow";
-  }
+  payload.action =
+    modeSelect.value === "actualizar" ? "updateRow" : "insertRow";
+  if (payload.action === "updateRow") payload.selectedRIF = rifSelect.value;
 
   try {
     btnSubmit.disabled = true;
@@ -210,22 +208,15 @@ async function onFormSubmit(e) {
 
     const res = await fetch(WEB_APP_URL, {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(payload),
     });
 
-    if (!res.ok) {
-      throw new Error(`HTTP error! status: ${res.status}`);
-    }
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
-    const text = await res.text();
-    let json;
-
-    try {
-      json = JSON.parse(text);
-    } catch (e) {
-      console.error("Error parsing JSON:", e, "Response text:", text);
-      throw new Error("Respuesta inválida del servidor");
-    }
+    const json = await res.json();
 
     if (json.ok) {
       exitoBox.style.display = "flex";
@@ -235,8 +226,9 @@ async function onFormSubmit(e) {
           mainForm.reset();
         }
       }, 3000);
-
-      loadRIFs();
+      // refrescar lista (si está en modo actualizar)
+      if (modeSelect.value === "actualizar") loadRIFs();
+      if (modeSelect.value === "nuevo") loadRIFs(); // si insertaste, actualizar lista
     } else {
       alert("Error: " + (json.error || "Desconocido"));
     }
