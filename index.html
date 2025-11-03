@@ -1,111 +1,298 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Registro de Prospecciones</title>
-    <link rel="stylesheet" href="style.css" />
+    <!-- Enlace a Bulma (framework CSS). Mantengo el original para que el layout y clases funcionen. -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
+    />
+    <title>Data Entry Form with File Upload</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <!-- Si quieres estilos personalizados puedes enlazar styles.css aquí:
+         <link rel="stylesheet" href="styles.css" />
+    -->
   </head>
   <body>
-    <div class="container">
-      <h1>Formulario de Prospecciones</h1>
+    <!-- Hero (encabezado visual) de Bulma -->
+    <section class="hero is-primary is-bold">
+      <div class="hero-body">
+        <div class="container">
+          <!-- Título principal -->
+          <h1 class="title">Prospecciones</h1>
+        </div>
+      </div>
+    </section>
 
-      <!-- 🔹 Formulario principal -->
-      <form id="prosForm">
-        <!-- Cada campo se vincula directamente con el nombre de columna de tu hoja -->
+    <!-- Formulario principal con id="form" para ser referenciado desde JS -->
+    <form id="form" class="container m-4 pl-4">
+      <!-- Campo: fecha de prospeccion -->
+      <div class="field">
+        <label class="label">FECHA</label>
+        <div class="control">
+          <input
+            class="input"
+            type="date"
+            placeholder="Fecha de Prospeccion"
+            name="FECHA"
+          />
+        </div>
+      </div>
+      <!-- Campo: Client Name -->
+      <div class="field">
+        <label class="label">REGION</label>
+        <div class="control">
+          <!-- input text. name="REGION" selecciona la region de la prospeccion -->
+          <input
+            class="input"
+            type="text"
+            placeholder="Selecciona una region"
+            name="REGION"
+          />
+        </div>
+      </div>
 
-        <label>FECHA:</label>
-        <input type="date" name="FECHA" required />
+      <!-- Campo: Ejecutiva (nota: selecciona un ejecutivo de prospeccion) -->
+      <div class="field">
+        <label class="label">EJECUTIVA</label>
+        <div class="control">
+          <input
+            class="input"
+            type="text"
+            placeholder="Selecciona una ejecutiva"
+            name="EJECUTIVA"
+          />
+        </div>
+      </div>
 
-        <label>REGIÓN:</label>
-        <input
-          type="text"
-          name="REGIÓN"
-          placeholder="Ej: Occidente, Centro, Oriente"
-          required
-        />
+      <!-- Campo: Rif (nota: ingresa el rif de cliente a prospectar) -->
+      <div class="field">
+        <label class="label">RIF</label>
+        <div class="control">
+          <input
+            class="input"
+            type="text"
+            placeholder="ingresa el rif de cliente a prospectar"
+            name="RIF"
+          />
+        </div>
+      </div>
 
-        <label>EJECUTIVA:</label>
-        <input
-          type="text"
-          name="EJECUTIVA"
-          placeholder="Nombre de la ejecutiva"
-          required
-        />
+      <!-- Campo: RAZON_SOCIAL (nota: ingresa la razon social de rif de cliente a prospectar) -->
+      <div class="field">
+        <label class="label">RAZON_SOCIAL</label>
+        <div class="control">
+          <input
+            class="input"
+            type="text"
+            placeholder="ingresa la razon social del rif del cliente a prospectar"
+            name="RAZON_SOCIAL"
+          />
+        </div>
+      </div>
 
-        <label>RIF:</label>
-        <input type="text" name="RIF" placeholder="Ej: J-12345678-9" required />
+      <!-- Campo: SERVICIO (nota: ingresa el servicio ofrecido al cliente) -->
+      <div class="field">
+        <label class="label">SERVICIO</label>
+        <div class="control">
+          <input
+            class="input"
+            type="text"
+            placeholder="ingresa el servicio ofrecido al cliente"
+            name="SERVICIO"
+          />
+        </div>
+      </div>
 
-        <label>RAZÓNSOCIAL:</label>
-        <input
-          type="text"
-          name="RAZÓNSOCIAL"
-          placeholder="Nombre de la empresa"
-          required
-        />
+      <!-- Campo: PROPUESTA (nota: ingresa la propuesta ofrecida al cliente) -->
+      <div class="field">
+        <label class="label">PROPUESTA</label>
+        <div class="control">
+          <input
+            class="input"
+            type="text"
+            placeholder="ingresa la propuesta ofrecida al cliente"
+            name="PROPUESTA"
+          />
+        </div>
+      </div>
 
-        <label>SERVICIO:</label>
-        <input type="text" name="SERVICIO" placeholder="Tipo de servicio" />
+      <!-- Campo: SRM (nota: ingresa el SRM ofrecido al cliente) -->
+      <div class="field">
+        <label class="label">SRM</label>
+        <div class="control">
+          <input
+            class="input"
+            type="text"
+            placeholder="ingresa el SRM ofrecido al cliente"
+            name="SRM"
+          />
+        </div>
+      </div>
 
-        <label>PROPUESTA:</label>
-        <textarea
-          name="PROPUESTA"
-          placeholder="Detalles de la propuesta"
-        ></textarea>
+      <!-- Campo: BENEFICIOS (nota: ingresa el BENEFICIOS ofrecido al cliente) -->
+      <div class="field">
+        <label class="label">BENEFICIOS</label>
+        <div class="control">
+          <input
+            class="input"
+            type="text"
+            placeholder="ingresa el BENEFICIOS ofrecido al cliente"
+            name="BENEFICIOS"
+          />
+        </div>
+      </div>
 
-        <label>SRM:</label>
-        <input type="text" name="SRM" placeholder="SRM relacionado" />
+      <!-- Campo: ESTATUS (nota: ingresa el ESTATUS de la prospeccion) -->
+      <div class="field">
+        <label class="label">ESTATUS</label>
+        <div class="control">
+          <input
+            class="input"
+            type="text"
+            placeholder="ingresa el ESTATUS de la prospeccion"
+            name="ESTATUS"
+          />
+        </div>
+      </div>
 
-        <label>BENEFICIOS:</label>
-        <textarea
-          name="BENEFICIOS"
-          placeholder="Beneficios ofrecidos"
-        ></textarea>
+      <!-- Campo: fecha de captacion, momento en el que el cliente acepta -->
+      <div class="field">
+        <label class="label">FECHACAP</label>
+        <div class="control">
+          <input
+            class="input"
+            type="date"
+            placeholder="Fecha de captacion"
+            name="FECHACAP"
+          />
+        </div>
+      </div>
 
-        <label>OBSERVACIONES:</label>
-        <textarea
-          name="OBSERVACIONES"
-          placeholder="Observaciones del cliente o notas"
-        ></textarea>
+      <!-- Campo: CODIGOCLIENTE (nota: ingresa el CODIGOCLIENTE asignado) -->
+      <div class="field">
+        <label class="label">CODIGOCLIENTE</label>
+        <div class="control">
+          <input
+            class="input"
+            type="text"
+            placeholder="ingresa el CODIGOCLIENTE asignado"
+            name="CODIGOCLIENTE"
+          />
+        </div>
+      </div>
 
-        <label>ESTATUS:</label>
-        <input
-          type="text"
-          name="ESTATUS"
-          placeholder="Ej: En proceso, Cerrado, Rechazado"
-        />
+      <!-- Campo: RANGOKG (nota: ingresa el RANGOKG en el que este cliente se maneja) -->
+      <div class="field">
+        <label class="label">RANGOKG</label>
+        <div class="control">
+          <input
+            class="input"
+            type="text"
+            placeholder="RANGOKG en el que este cliente se maneja"
+            name="RANGOKG"
+          />
+        </div>
+      </div>
 
-        <label>FECHACAP:</label>
-        <input type="date" name="FECHACAP" />
+      <!-- Campo: CODIGOF (nota: ingresa el CODIGOF de la franquicia asignada) -->
+      <div class="field">
+        <label class="label">CODIGOF</label>
+        <div class="control">
+          <input
+            class="input"
+            type="text"
+            placeholder="CODIGOF de la franquicia asignada"
+            name="CODIGOF"
+          />
+        </div>
+      </div>
 
-        <label>codigocliente:</label>
-        <input
-          type="text"
-          name="codigocliente"
-          placeholder="Código interno de cliente"
-        />
+      <!-- Campo: Upload Document -->
+      <div class="field">
+        <label class="label">Upload Document (Optional)</label>
+        <div class="control">
+          <!-- Estructura de archivo con clases Bulma -->
+          <div class="file has-name is-fullwidth">
+            <label class="file-label">
+              <!-- input de tipo file con id="fileInput" para manejarlo desde JS -->
+              <input
+                class="file-input"
+                type="file"
+                name="theFile"
+                id="fileInput"
+                accept="*/*"
+              />
+              <span class="file-cta">
+                <span class="file-icon">
+                  <i class="fas fa-upload"></i>
+                </span>
+                <span class="file-label"> Choose a file… </span>
+              </span>
+              <!-- Mostrar nombre de archivo seleccionado -->
+              <span class="file-name" id="fileNameDisplay">
+                No file selected
+              </span>
+            </label>
+          </div>
+        </div>
+      </div>
 
-        <label>RANGOKG:</label>
-        <input
-          type="text"
-          name="RANGOKG"
-          placeholder="Ej: 0-100kg, 100-500kg, etc."
-        />
+      <!-- Campo oculto para almacenar el nombre del archivo (si se necesita) -->
+      <input type="hidden" name="filename" id="actualFilename" />
 
-        <label>CÓDIGOF:</label>
-        <input
-          type="text"
-          name="CÓDIGOF"
-          placeholder="Código final del registro"
-        />
+      <!-- Textarea para OBSERVACIONES adicionales -->
+      <div class="field">
+        <label class="label">OBSERVACIONES</label>
+        <div class="control">
+          <textarea
+            class="textarea"
+            placeholder="ingresa la informacion adicional/observaciones"
+            name="OBSERVACIONES"
+          ></textarea>
+        </div>
+      </div>
 
-        <button type="submit">Enviar Registro</button>
-      </form>
+      <!-- Botones: submit y cancelar -->
+      <div class="field is-grouped">
+        <div class="control">
+          <!-- botón submit con id para mostrar estado loading desde JS -->
+          <button class="button is-primary" type="submit" id="submit-button">
+            Sign Up
+          </button>
+        </div>
+        <div class="control">
+          <!-- botón cancelar que resetea el form y texto del fileName -->
+          <button
+            class="button is-danger"
+            type="button"
+            onclick="document.getElementById('form').reset(); document.getElementById('fileNameDisplay').textContent = 'No file selected';"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </form>
 
-      <!-- Zona de mensajes -->
-      <div id="mensaje"></div>
-    </div>
+    <!-- Mensajes de estado (oculto por defecto). JS lo mostrará/ocultará -->
+    <div
+      id="message"
+      style="
+        display: none;
+        margin: 20px;
+        padding: 10px;
+        border-radius: 4px;
+        font-weight: bold;
+      "
+    ></div>
 
-    <script src="script.js"></script>
+    <!-- Enlaza tu código JS en un archivo separado app.js (recomendado):
+         <script src="app.js"></script>
+         Aquí se mantiene inline para reflejar el original, pero cuando separemos lo moveremos a app.js.
+    -->
+    <script src="app.js"></script>
   </body>
 </html>
